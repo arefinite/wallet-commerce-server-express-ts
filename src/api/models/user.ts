@@ -6,6 +6,7 @@ export interface IUser {
   fullName: string
   password: string
   balance: number
+  purchasedItems: string[]
 }
 
 const userSchema = new Schema<IUser>(
@@ -14,6 +15,9 @@ const userSchema = new Schema<IUser>(
     fullName: { type: String, required: true },
     password: { type: String, required: true },
     balance: { type: Number, default: 10000 },
+    purchasedItems: [
+      { type: Schema.Types.ObjectId, ref: 'product', default: [] },
+    ],
   },
   {
     timestamps: true,

@@ -4,9 +4,8 @@ import jwt from 'jsonwebtoken'
 import { IUser, User } from '../models/user'
 
 export const registerUser = async (req: Request, res: Response) => {
+  const { email, fullName, password } = req.body
   try {
-    const { email, fullName, password } = req.body
-
     const user = await User.findOne({ email })
     if (user) {
       return res
@@ -36,8 +35,8 @@ export const registerUser = async (req: Request, res: Response) => {
 }
 
 export const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body
   try {
-    const { email, password } = req.body
     const user: IUser | null = await User.findOne({ email })
     if (!user) {
       return res.status(400).json({ success: false, message: 'User not found' })
